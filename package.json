@@ -1,0 +1,18 @@
+{
+  "name": "pin-reporting-node",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "oracledb": "^4.0.1"
+  },
+  "scripts": {
+    "debug": "node --inspect=8080 node_modules/serverless/bin/serverless offline -s dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "serverless": "^1.57.0",
+    "serverless-offline": "^5.12.0"
+  }
+}

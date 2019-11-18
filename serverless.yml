@@ -1,0 +1,34 @@
+service: pin-reporting-node
+
+layers:
+  oraclelib:
+    path: oraclelib
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: us-east-1
+  stackName: pin-reporting-node
+  role: arn:aws:iam::312226949769:role/idt-carrier-lambda-role
+  deploymentBucket:
+    name: s3-pins
+  vpc:
+    securityGroupIds:
+      - "sg-27f9af42"
+    subnetIds:
+      - "subnet-96d526e1"
+      - "subnet-c69c8aee"
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+     - http:
+         path: "/{proxy+}"
+         method: any
+    layers:
+      - {Ref: OraclelibLambdaLayer}
