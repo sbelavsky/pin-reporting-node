@@ -1,9 +1,5 @@
 service: pin-reporting-node
 
-layers:
-  oraclelib:
-    path: oraclelib
-
 plugins:
   - serverless-offline
 
@@ -13,7 +9,7 @@ provider:
   stage: dev
   region: us-east-1
   stackName: pin-reporting-node
-  role: arn:aws:iam::312226949769:role/idt-carrier-lambda-role
+  role: arn:aws:iam::312226949769:role/lambda-sqs-s3-logs
   deploymentBucket:
     name: s3-pins
   vpc:
@@ -24,11 +20,18 @@ provider:
       - "subnet-c69c8aee"
 
 functions:
-  hello:
-    handler: handler.hello
+  inventoryReport:
+    handler: handler.inventoryReport
     events:
      - http:
-         path: "/{proxy+}"
-         method: any
+         path: "/inventoryReport"
+         method: get
     layers:
-      - {Ref: OraclelibLambdaLayer}
+      - ${cf:oraclelib-layer-dev.OraclelibLayerExport}
+
+package:
+  exclude:
+    - oraclelib-layer/**
+    - '.*'
+    - '.*/**'
+    - '*.json'

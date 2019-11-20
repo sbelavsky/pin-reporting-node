@@ -1,0 +1,21 @@
+service: oraclelib-layer
+
+layers:
+  oraclelib:
+    path: oraclelib
+
+provider:
+  name: aws
+  stage: dev
+  region: us-east-1
+  role: arn:aws:iam::312226949769:role/lambda-sqs-s3-logs
+  deploymentBucket:
+    name: s3-pins
+
+resources:
+  Outputs:
+    OraclelibLayerExport:
+      Value:
+        Ref: OraclelibLambdaLayer
+      Export:
+        Name: OracleLibLambdaLayer

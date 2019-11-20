@@ -1,15 +1,15 @@
 {
   "name": "pin-reporting-node",
   "version": "1.0.0",
-  "description": "",
+  "description": "Provides access to pin reports",
   "dependencies": {
+    "aws-sdk": "^2.574.0",
     "oracledb": "^4.0.1"
   },
   "scripts": {
     "debug": "node --inspect=8080 node_modules/serverless/bin/serverless offline -s dev"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "sbelavsky",
   "devDependencies": {
     "eslint": "^6.6.0",
     "serverless": "^1.57.0",
