@@ -22,6 +22,8 @@ provider:
 functions:
   inventoryReport:
     handler: handler.inventoryReport
+    memorySize: 256
+    reservedConcurrency: 5
     events:
      - http:
          path: "/inventoryReport"
