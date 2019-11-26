@@ -1,6 +1,6 @@
 const aws4 = require('aws4');
 const nv = require('node-vault');
-const {role, endpoint, secret, serverId} = require('./vaultConfig');
+const { role, endpoint, secret, serverId } = require('./config');
 
 const vault = nv({
     apiVersion: 'v1',

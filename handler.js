@@ -1,6 +1,7 @@
 'use strict';
 const oracledb = require('oracledb');
-const dbconfig = require("./dbconfig");
+const dbconfig = require('./vault/client');
+const { checkToken } = require('./auth/client');
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.poolMax = 1;
@@ -12,7 +13,25 @@ const createResponse = (statusCode, message) => ({
   body: JSON.stringify(message),
 });
 
-module.exports.inventoryReport = async () => {
+const validateToken = async (event) => {
+  if (!event.queryStringParameters || !event.queryStringParameters.token) {
+    const missingTokenMsg = 'Missing token parameter';
+    console.error(missingTokenMsg);
+    return createResponse(400, missingTokenMsg);
+  }
+  try {
+    await checkToken(event.queryStringParameters.token);
+  } catch (error) {
+    return createResponse(401, error.message);
+  }
+}
+
+module.exports.inventoryReport = async (event) => {
+  const validationErrorResponse = await validateToken(event);
+  if (validationErrorResponse) {
+    return validationErrorResponse;
+  }
+
   let connection;
   try {
     if (!config) {
