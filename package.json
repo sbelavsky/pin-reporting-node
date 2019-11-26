@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Provides access to pin reports",
   "dependencies": {
-    "aws-sdk": "^2.574.0",
+    "aws4": "^1.8.0",
+    "node-vault": "^0.9.11",
     "oracledb": "^4.0.1"
   },
   "scripts": {

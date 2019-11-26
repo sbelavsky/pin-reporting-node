@@ -1,6 +1,6 @@
 'use strict';
 const oracledb = require('oracledb');
-const { fetchDBConfig } = require("./dbconfig");
+const dbconfig = require("./dbconfig");
 
 oracledb.outFormat = oracledb.OUT_FORMAT_OBJECT;
 oracledb.poolMax = 1;
@@ -17,11 +17,11 @@ module.exports.inventoryReport = async () => {
   try {
     if (!config) {
       // eslint-disable-next-line require-atomic-updates
-      config = await fetchDBConfig();
+      config = await dbconfig;
     }
     connection = await oracledb.getConnection(config);
     const result = await connection.execute("SELECT CLASS class, COUNT(*) count FROM PIN_INVENTORY GROUP BY CLASS ORDER BY CLASS");
-    return createResponse(200, {report: result.rows});
+    return createResponse(200, { report: result.rows });
   } catch (err) {
     console.error(err.message);
     return createResponse(500, err.message)
