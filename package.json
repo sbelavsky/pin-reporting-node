@@ -6,7 +6,7 @@
   "repository": {"type": "git", "url": "https://github.com/sbelavsky/pin-reporting-node.git"},
   "dependencies": {
     "aws4": "^1.8.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-vault": "^0.9.11",
     "oracledb": "^4.0.1"
   },
